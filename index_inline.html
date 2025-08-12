@@ -3,23 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Auto Bonau – Fahrzeuge (Inline)</title>
+  <title>Unsere Autos</title>
   <style>
-    body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 24px; color:#111; }
+    :root { --sand:#d9c8a3; }
+    body { font-family: Helvetica, Arial, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; color:#111; }
     .wrap { max-width: 1200px; margin: 0 auto; }
+    h1 { font-size: 28px; margin: 0 0 8px; font-weight: 500; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .card { border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden; background:#fff; box-shadow: 0 2px 6px rgba(0,0,0,.04); }
+    .card { border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden; background:#fff; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
     .img { width: 100%; height: 180px; background:#f5f5f5; object-fit: cover; display:block; }
     .content { padding: 14px; }
-    .title { margin: 0 0 6px; font-weight: 600; }
+    .title { margin: 0 0 6px; font-weight: 500; }
     .meta { color: #666; font-size: 12px; }
-    .price { font-weight: 700; margin: 10px 0; }
+    .price { font-weight: 600; margin: 10px 0; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Unsere Autos</h1>
-    <div class="grid" id="grid"></div>
+    <div id="grid" class="grid"></div>
   </div>
   <script id="cars" type="application/json">[
   {
@@ -77,8 +79,8 @@
       15000,
       20000
     ],
-    "created_at": "2025-08-12T15:50:47.626576Z",
-    "updated_at": "2025-08-12T15:50:47.626576Z",
+    "created_at": "2025-08-12T15:57:00.270888Z",
+    "updated_at": "2025-08-12T15:57:00.270888Z",
     "notes": "Schweizer Fahrzeug mit Swiss Free Service bis 10/2025."
   },
   {
@@ -135,8 +137,8 @@
       15000,
       20000
     ],
-    "created_at": "2025-08-12T15:50:47.626576Z",
-    "updated_at": "2025-08-12T15:50:47.626576Z",
+    "created_at": "2025-08-12T15:57:00.270888Z",
+    "updated_at": "2025-08-12T15:57:00.270888Z",
     "notes": "Batterie 42 kWh netto."
   }
 ]</script>
@@ -149,9 +151,9 @@
         <div class="card">
           ${img ? `<img class="img" src="${img}" alt="">` : ''}
           <div class="content">
-            <p class="title">${car.brand || car.make || ''} ${car.model || ''} ${car.trim ? '– ' + car.trim : ''}</p>
-            <div class="meta">${car.first_registration || ''} • ${car.mileage_km != null ? (car.mileage_km.toLocaleString('de-CH') + ' km') : ''}</div>
-            <div class="price">${car.price_chf != null ? (new Intl.NumberFormat('de-CH', { style: 'currency', currency: 'CHF' }).format(car.price_chf)) : ''}</div>
+            <p class="title">${(car.brand || car.make || '')} ${(car.model || '')} ${(car.trim ? '– ' + car.trim : '')}</p>
+            <div class="meta">${(car.first_registration || '')} • ${(car.mileage_km != null ? (car.mileage_km.toLocaleString('de-CH') + ' km') : '')}</div>
+            <div class="price">${(car.price_chf != null ? (new Intl.NumberFormat('de-CH', { style: 'currency', currency: 'CHF' }).format(car.price_chf)) : '')}</div>
           </div>
         </div>`;
     }
