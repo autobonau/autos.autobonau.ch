@@ -6,8 +6,7 @@
   <title>Unsere Autos</title>
   <style>
     :root { --sand:#d9c8a3; }
-    * { box-sizing: border-box; }
-    body { font-family: Helvetica, Arial, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; color:#111; background:#fff; }
+    body { font-family: Helvetica, Arial, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; color:#111; }
     .wrap { max-width: 1200px; margin: 0 auto; }
     h1 { font-size: 28px; margin: 0 0 8px; font-weight: 500; }
     .small { color:#555; margin: 0 0 16px; }
@@ -20,14 +19,13 @@
     .price { font-weight: 600; margin: 10px 0; }
     .btn { display:inline-block; padding:10px 14px; border-radius: 999px; background: var(--sand); color: #fff; text-decoration: none; }
     .err { color:#b00020; white-space: pre-wrap; margin-top: 10px; }
-    .paths { font-size: 12px; color:#666; margin-top: 8px; }
+    .paths { font-size: 12px; color:#666; margin-top: 6px; }
     code { background:#f6f6f6; padding:2px 4px; border-radius:4px; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Unsere Autos</h1>
-    <p class="small">Diese Seite versucht mehrere Quellen für <code>autos.json</code> in folgender Reihenfolge. Lade alle Dateien in den Root deines GitHub‑Pages Repos.</p>
     <div id="status" class="small">Lade Daten…</div>
     <div id="grid" class="grid"></div>
     <pre id="error" class="err"></pre>
@@ -35,12 +33,10 @@
   </div>
 
   <script>
-    // Optional Konfiguration – nur ausfüllen, wenn Auto‑Erkennung nicht greift
-    const CONFIG = {
-      github_user: "",       // z. B. "autobonau"
-      github_repo: "",       // z. B. "autos"
-      branch_try: ["main","master"]
-    };
+    const candidates = [
+      './autos.json',
+      'https://autobonau.github.io/autos.autobonau.ch/autos.json'  // fester Fallback
+    ].map(u => u + '?t=' + Date.now());
 
     function card(car) {
       const img = Array.isArray(car.images) && car.images.length ? car.images[0] : null;
@@ -51,50 +47,16 @@
             <p class="title">${(car.brand || car.make || '')} ${(car.model || '')} ${(car.trim ? '– ' + car.trim : '')}</p>
             <div class="meta">${(car.first_registration || '')} • ${(car.mileage_km != null ? (car.mileage_km.toLocaleString('de-CH') + ' km') : '')}</div>
             <div class="price">${(car.price_chf != null ? (new Intl.NumberFormat('de-CH', { style: 'currency', currency: 'CHF' }).format(car.price_chf)) : '')}</div>
-            <div class="meta">${(car.fuel_type || '')} • ${(car.transmission || '')} • ${(car.body_type || '')}</div>
           </div>
         </div>`;
-    }
-
-    function computeCandidates() {
-      const t = Date.now();
-      const { origin, hostname, pathname } = window.location;
-      // same folder
-      const sameFolder = new URL('./autos.json', window.location.href).href;
-      // site root
-      const root = origin + '/autos.json';
-      const list = [sameFolder + '?t=' + t, root + '?t=' + t];
-
-      // GitHub Pages repo base (https://user.github.io/repo/...)
-      if (hostname.endsWith('.github.io')) {
-        const user = hostname.split('.')[0];
-        const segs = pathname.split('/').filter(Boolean);
-        const repo = segs.length ? segs[0] : '';
-        if (repo) {
-          list.push(`${origin}/${repo}/autos.json?t=${t}`);
-          // raw GitHub fallbacks
-          (CONFIG.branch_try || ["main","master"]).forEach(br => {
-            list.push(`https://raw.githubusercontent.com/${user}/${repo}/${br}/autos.json?t=${t}`);
-          });
-        }
-      }
-
-      // Custom domain + optional CONFIG for raw GitHub
-      if (CONFIG.github_user && CONFIG.github_repo) {
-        (CONFIG.branch_try || ["main","master"]).forEach(br => {
-          list.push(`https://raw.githubusercontent.com/${CONFIG.github_user}/${CONFIG.github_repo}/${br}/autos.json?t=${t}`);
-        });
-      }
-
-      return Array.from(new Set(list)); // de‑dupe
     }
 
     async function tryFetch(url) {
       try {
         const res = await fetch(url, { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+        if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + res.statusText);
         const json = await res.json();
-        if (!Array.isArray(json)) throw new Error('JSON ist keine Array‑Liste');
+        if (!Array.isArray(json)) throw new Error('JSON ist keine Liste');
         return { ok: true, data: json };
       } catch (e) {
         return { ok: false, error: String(e) };
@@ -106,24 +68,22 @@
       const grid = document.getElementById('grid');
       const error = document.getElementById('error');
       const paths = document.getElementById('paths');
-
-      const candidates = computeCandidates();
-      paths.textContent = 'Versuche Pfade: \\n' + candidates.join('\\n');
+      paths.textContent = 'Versuche Pfade:\n' + candidates.join('\n');
 
       let lastErr = '';
       for (const url of candidates) {
-        status.textContent = 'Lade: ' + url;
+        status.textContent = 'lade: ' + url;
         const r = await tryFetch(url);
         if (r.ok) {
           grid.innerHTML = r.data.map(card).join('');
-          status.textContent = `Gefundene Fahrzeuge: ${r.data.length} – Quelle: ${url}`;
+          status.textContent = 'Gefundene Fahrzeuge: ' + r.data.length;
           error.textContent = '';
           return;
         }
         lastErr = r.error;
       }
-      status.textContent = 'Fehler beim Laden.';
-      error.textContent = 'Letzter Fehler: ' + lastErr + '\\nHinweis: Lege autos.json in den gleichen Ordner wie index.html oder aktiviere GitHub Pages.';
+      status.textContent = 'Fehler beim Laden';
+      error.textContent = 'Letzter Fehler: ' + lastErr + '\nLiegt autos.json entweder neben index.html oder unter https://autobonau.github.io/autos.autobonau.ch/autos.json?';
     }
 
     load();

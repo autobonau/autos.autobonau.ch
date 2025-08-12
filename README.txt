@@ -1,17 +1,12 @@
-Auto Bonau – GitHub Pages Bundle (Auto‑Detect)
+Auto Bonau – GitHub Pages Fixed
 
 Dateien
-- index.html – robuster Loader mit mehreren Pfad‑Fallbacks (gleiches Verzeichnis, Site‑Root, GitHub Pages, raw.githubusercontent.com).
-- index_inline.html – Daten sind inline eingebettet (funktioniert ohne Fetch).
-- autos.json – zwei Beispiel‑Fahrzeuge.
+- index.html – laedt autos.json zuerst relativ, dann fest von https://autobonau.github.io/autos.autobonau.ch/autos.json
+- autos.json – Beispielautos, kann direkt ersetzt werden.
 
 Deployment
-1) Alle Dateien in den Root des GitHub‑Pages‑Branches (z. B. main) pushen.
-2) Settings → Pages aktivieren (Source: main / root).
-3) Aufrufen: https://USER.github.io/REPO/index.html
-4) Falls Custom‑Domain (z. B. autos.autobonau.ch), DNS‑CNAME setzen und im Repo eine Datei CNAME mit dem Domain‑Namen anlegen.
+1) Beide Dateien ins Repo autobonau/autos.autobonau.ch (Branch main, Root) hochladen.
+2) Pages ist gemäss Screenshot bereits auf main/root aktiv.
+3) Aufrufen: https://autobonau.github.io/autos.autobonau.ch/index.html
 
-Hinweise
-- index.html zeigt unterhalb die versuchten Pfade. Sieht man dort eine 404‑URL, liegt autos.json vermutlich im falschen Ordner.
-- Cache hart neu laden (Ctrl/Cmd+Shift+R), sonst siehst du alte Antworten.
-- Bei Bedarf in index.html oben CONFIG.github_user / github_repo ausfüllen, um RAW‑Fallbacks zu aktivieren.
+Danach kannst du autos.json jederzeit im Repo ueberschreiben – die Seite zieht die aktuellen Daten.
