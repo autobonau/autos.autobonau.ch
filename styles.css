@@ -770,6 +770,14 @@ details ul li {
   width: 100%;
 }
 
+/* Note inside modals for additional information, e.g. test drive confirmation. */
+.modal-note {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
 /* Static field styling used for non-editable values in the leasing modal.
    It resembles an input field but is read-only text. */
 /* Static field styling used for non-editable values in the leasing modal.

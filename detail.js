@@ -254,9 +254,18 @@ window.addEventListener('DOMContentLoaded', async () => {
       const modal = document.getElementById('enquiryModal');
       if (modal) modal.style.display = 'block';
     });
+    // Test drive button
+    const testDriveBtn = document.createElement('button');
+    testDriveBtn.className = 'cta secondary';
+    testDriveBtn.textContent = 'Probefahrt anfragen';
+    testDriveBtn.addEventListener('click', () => {
+      const modal = document.getElementById('testDriveModal');
+      if (modal) modal.style.display = 'block';
+    });
     actionsDiv.appendChild(buyBtn);
     actionsDiv.appendChild(leaseBtn);
     actionsDiv.appendChild(enquiryBtn);
+    actionsDiv.appendChild(testDriveBtn);
     priceCard.appendChild(actionsDiv);
     rightCol.appendChild(priceCard);
     infoRow.appendChild(rightCol);
@@ -445,6 +454,66 @@ window.addEventListener('DOMContentLoaded', async () => {
     enquiryContent.appendChild(sendBtn);
     enquiryModal.appendChild(enquiryContent);
     document.body.appendChild(enquiryModal);
+
+    // Create test drive modal
+    const testDriveModal = document.createElement('div');
+    testDriveModal.id = 'testDriveModal';
+    testDriveModal.className = 'modal';
+    const tdContent = document.createElement('div');
+    tdContent.className = 'modal-content';
+    // Close button for test drive modal
+    const tdClose = document.createElement('span');
+    tdClose.className = 'close';
+    tdClose.innerHTML = '\u00D7';
+    tdClose.addEventListener('click', () => {
+      testDriveModal.style.display = 'none';
+    });
+    tdContent.appendChild(tdClose);
+    const tdHeader = document.createElement('h3');
+    tdHeader.textContent = 'Probefahrt anfragen';
+    tdContent.appendChild(tdHeader);
+    // helper for test drive inputs
+    function addTDInput(labelText, id, type) {
+      const label = document.createElement('label');
+      label.setAttribute('for', id);
+      label.textContent = labelText;
+      tdContent.appendChild(label);
+      const input = document.createElement('input');
+      input.id = id;
+      input.type = type;
+      tdContent.appendChild(input);
+    }
+    // Date and time fields
+    addTDInput('Datum der Probefahrt','tdDateModal','date');
+    addTDInput('Uhrzeit','tdTimeModal','time');
+    addTDInput('Ihr Name','tdNameModal','text');
+    addTDInput('Ihre E-Mail-Adresse','tdEmailModal','email');
+    addTDInput('Ihre Telefonnummer','tdPhoneModal','tel');
+    // Message field
+    const tdMsgLabel = document.createElement('label');
+    tdMsgLabel.setAttribute('for','tdMessageModal');
+    tdMsgLabel.textContent = 'Ihre Nachricht';
+    tdContent.appendChild(tdMsgLabel);
+    const tdMsgArea = document.createElement('textarea');
+    tdMsgArea.id = 'tdMessageModal';
+    tdMsgArea.rows = 4;
+    tdContent.appendChild(tdMsgArea);
+    // Note about confirmation
+    const note = document.createElement('p');
+    note.className = 'modal-note';
+    note.textContent = 'Der Termin muss noch von uns bestätigt werden.';
+    tdContent.appendChild(note);
+    // Send button for test drive
+    const tdSendBtn = document.createElement('button');
+    tdSendBtn.className = 'cta';
+    tdSendBtn.textContent = 'Probefahrt anfragen';
+    tdSendBtn.addEventListener('click', () => {
+      alert('Vielen Dank für Ihre Probefahrtanfrage! Wir werden uns in Kürze bei Ihnen melden, um den Termin zu bestätigen.');
+      testDriveModal.style.display = 'none';
+    });
+    tdContent.appendChild(tdSendBtn);
+    testDriveModal.appendChild(tdContent);
+    document.body.appendChild(testDriveModal);
   } catch (err) {
     console.error('Fehler beim Laden der Fahrzeugdaten', err);
     container.textContent = 'Fehler beim Laden der Fahrzeugdaten.';
