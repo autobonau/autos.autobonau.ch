@@ -1,5 +1,3 @@
-// script.js – Version, die autos.json lädt und dein Layout beibehält
-
 function roundTo5Rappen(v){ return Math.round(v*20)/20; }
 function calculateMonthlyPayment(price, deposit, residual, termMonths, interestRate){
   const principal = price - deposit - residual;
