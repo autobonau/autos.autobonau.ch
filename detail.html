@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fahrzeugdetails – Auto Bonau</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Global header reused from the index page -->
+    <header>
+      <!-- Insert the actual Auto Bonau logo image instead of the text branding. -->
+      <div class="logo"><img src="logo.png" alt="Auto Bonau" /></div>
+      <nav>
+        <a href="http://autobonau.ch">Home</a>
+        <a href="index.html">Unsere Autos</a>
+        <a href="#" onclick="alert('Diese Seite ist in diesem Prototyp nicht verfügbar.'); return false;">Kaufabwicklung</a>
+        <a href="#" onclick="alert('Diese Seite ist in diesem Prototyp nicht verfügbar.'); return false;">Autofinder</a>
+        <a href="http://autobonau.ch#ueber-uns">Über uns</a>
+        <a href="http://autobonau.ch#kontakt">Kontakt</a>
+      </nav>
+    </header>
+    <main class="container">
+      <div id="detailContainer" class="detail-container">
+        <p>Lade Fahrzeugdaten ...</p>
+      </div>
+    </main>
+
+    <script src="detail.js"></script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+[
+  {
+    "vin": "BMWX32023",
+    "brand": "BMW",
+    "model": "X3",
+    "vehicleType": "SUV",
+    "fuel": "Petrol",
+    "price": 45000,
+    "firstRegistration": "2023-05-15",
+    "mileage": 12000,
+    "power": 190,
+    "color": "Blue",
+    "gearbox": "Automatic",
+    "description": "Gut gepflegt, unfallfrei und mit scheckheftgepflegter Historie."
+  },
+  {
+    "vin": "AUDIA42022",
+    "brand": "Audi",
+    "model": "A4",
+    "vehicleType": "Limousine",
+    "fuel": "Diesel",
+    "price": 38000,
+    "firstRegistration": "2022-09-01",
+    "mileage": 20000,
+    "power": 170,
+    "color": "Grey",
+    "gearbox": "Manual",
+    "description": "Sparsamer Diesel mit umfangreicher Ausstattung und neuen Winterreifen."
+  },
+  {
+    "vin": "VWGOLF2021",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "vehicleType": "Hatchback",
+    "fuel": "Petrol",
+    "price": 25000,
+    "firstRegistration": "2021-11-20",
+    "mileage": 30000,
+    "power": 150,
+    "color": "White",
+    "gearbox": "Automatic",
+    "description": "Kompaktes Fahrzeug mit moderner Ausstattung und hoher Alltagstauglichkeit."
+  },
+  {
+    "vin": "TESLAM32020",
+    "brand": "Tesla",
+    "model": "Model 3",
+    "vehicleType": "Limousine",
+    "fuel": "Electric",
+    "price": 55000,
+    "firstRegistration": "2020-07-30",
+    "mileage": 40000,
+    "power": 283,
+    "color": "Red",
+    "gearbox": "Automatic",
+    "description": "Vollelektrische Limousine mit Autopilot, guter Reichweite und wenigen Gebrauchsspuren."
+  }
+]

@@ -1,0 +1,808 @@
+/*
+ * Common stylesheet for the Auto Bonau prototype.
+ *
+ * The layout is designed to be simple and responsive. Cards are displayed
+ * in a flexible grid and scale down gracefully on narrow viewports. A
+ * consistent header bar at the top contains the brand logo and global
+ * navigation links so customers always recognise the Auto Bonau site.
+ */
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #fafafa;
+  color: #333;
+}
+
+/* Hero banner at the top of the listing page. A background image with
+   overlayed heading introduces the catalogue. */
+.hero {
+  position: relative;
+  height: 280px;
+  background-image: url('https://images.unsplash.com/photo-1511919929932-063512a5c273?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+}
+.hero-overlay h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* When hero is removed, we display a simple page title at the top of the
+   listing. */
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+/* Layout for filter and listing areas */
+.listing-layout {
+  display: flex;
+  gap: 1.5rem;
+  /* Allow the sidebar and listing area to wrap to the next line when
+     there isn't enough horizontal space. Without flex-wrap, the two
+     columns can overflow the viewport and cause horizontal scrolling. */
+  flex-wrap: wrap;
+}
+
+/* Filter sidebar styling */
+.filter-panel {
+  flex: 0 0 280px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 1rem;
+  height: fit-content;
+}
+.filter-panel h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+.filter-group {
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+.filter-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.filter-group.half {
+  flex: 1;
+}
+.filter-panel select,
+.filter-panel input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.reset-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+.reset-btn:hover {
+  background-color: #e4e4e4;
+}
+
+/* Listing area styles */
+.listing-area {
+  /* Let the listing area take up the remaining space while being allowed
+     to shrink below its intrinsic width. The min-width reset prevents
+     the grid from forcing horizontal scroll when the viewport is narrow. */
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.listing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.sort label {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+.sort select {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.wishlist-indicator {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.wishlist-icon {
+  color: #b28a56;
+  font-size: 1.1rem;
+}
+
+/* Updated card styles to more closely match autorichner's cards */
+.card {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.card-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  /* Use the same gold tone as other highlights instead of a bright green for
+     a more elegant look. */
+  background-color: #b28a56;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.card-favorite {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1rem;
+  color: #bbb;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.2s;
+}
+.card-favorite.active {
+  color: #b28a56;
+}
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.card-body {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-size: 0.85rem;
+}
+.card-body h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  min-height: 2.5rem;
+}
+.card-details {
+  margin-top: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+  color: #555;
+}
+.card-price {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 0.8rem;
+}
+.new-price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #b28a56;
+}
+.monthly {
+  font-size: 0.8rem;
+  /* Leasingpreis in der Übersicht soll ebenfalls goldfarben sein */
+  color: #b28a56;
+}
+.card-body a {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  text-decoration: none;
+  color: #fff;
+  background-color: #b28a56;
+  padding: 0.45rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+.card-body a:hover {
+  background-color: #9f764b;
+}
+
+/* Adjust responsive behaviour */
+@media (max-width: 900px) {
+  .listing-layout {
+    flex-direction: column;
+  }
+  .filter-panel {
+    width: 100%;
+  }
+  .listing-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .wishlist-indicator {
+    margin-top: 0.25rem;
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo wrapper. Contains the Auto Bonau logo image. */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Scale the logo image to a reasonable height while keeping aspect ratio. */
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+nav a {
+  margin: 0 0.75rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #b28a56;
+}
+
+.container {
+  /* Füllt den gesamten verfügbaren Platz aus, statt eine feste Maximalbreite
+     zu verwenden. Damit wirkt die Seite bildschirmfüllend. */
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 1rem 1.5rem;
+  /* Include padding in the width calculation to prevent the container
+     from overflowing horizontally. Without border-box the left/right
+     padding would add to the width and create a horizontal scroll bar. */
+  box-sizing: border-box;
+}
+
+/* Filter section on the listing page */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.filters label {
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.filters select,
+.filters input[type="number"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Grid for the vehicle cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.card-body p {
+  margin: 0.25rem 0;
+  flex: 1;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.card-body .price {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: auto;
+  color: #b28a56;
+}
+
+.card-body a {
+  text-decoration: none;
+  color: #fff;
+  background-color: #b28a56;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 0.75rem;
+  transition: background-color 0.2s;
+}
+
+.card-body a:hover {
+  background-color: #9f764b;
+}
+
+/* Detail page styling */
+.detail-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-top: 1rem;
+}
+
+.detail-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.detail-header img {
+  flex: 1 1 300px;
+  max-width: 100%;
+  border-radius: 8px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.detail-info {
+  flex: 2 1 300px;
+}
+
+.detail-info h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.detail-info p {
+  margin: 0.25rem 0;
+}
+
+/* Leasing calculator styles */
+.leasing {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+.leasing label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.leasing input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+.leasing .result {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #b28a56;
+}
+
+/* Contact form */
+.contact {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+.contact label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.contact input,
+.contact textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 0.25rem;
+  box-sizing: border-box;
+}
+
+.contact button {
+  margin-top: 1rem;
+  background-color: #b28a56;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contact button:hover {
+  background-color: #9f764b;
+}
+
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+  }
+  nav a {
+    margin: 0 0.5rem;
+  }
+  .detail-header {
+    flex-direction: column;
+  }
+}
+
+/* ======= Detail page styles ======= */
+
+/* Gallery showing three images side-by-side */
+.detail-gallery {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.detail-gallery img {
+  flex: 1;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Title section with heading, subtitle and tags */
+.detail-title-section {
+  margin-bottom: 1rem;
+}
+.detail-title-section h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.detail-subtitle {
+  margin: 0.25rem 0 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+.detail-tags {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+/* Condition tag on the detail page. Use the same gold tone as other highlights
+   instead of a bright green for a more elegant look. */
+.tag-condition {
+  background-color: #b28a56;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* Info row: left table and right price card */
+.detail-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+.detail-left {
+  flex: 2 1 300px;
+}
+.detail-right {
+  flex: 1 1 250px;
+}
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.detail-table th {
+  text-align: left;
+  padding: 0.4rem 0;
+  font-weight: 600;
+  width: 40%;
+  color: #444;
+}
+.detail-table td {
+  padding: 0.4rem 0;
+  color: #555;
+}
+.price-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.price-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #b28a56;
+}
+.price-monthly {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  /* Leasingpreis in der Detailansicht auf der Karte in gold statt grün */
+  color: #b28a56;
+}
+.cta-buttons {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+.cta {
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: center;
+}
+.cta:not(.secondary) {
+  background-color: #b28a56;
+  color: #fff;
+}
+.cta.secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.cta.tertiary {
+  /* Third call-to-action style for enquiry button. Slightly darker grey
+     to differentiate from the secondary button. */
+  background-color: #e6e6e6;
+  color: #333;
+}
+.cta:hover:not(.secondary) {
+  background-color: #9f764b;
+}
+.cta.secondary:hover {
+  background-color: #e4e4e4;
+}
+
+/* The title link inside each card inherits its parent color and has no
+   underline by default. On hover, an underline appears to indicate it
+   is clickable. */
+.card-body h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.card-body h3 a:hover {
+  text-decoration: underline;
+}
+
+/* Collapsible details sections */
+details {
+  margin-bottom: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 0.75rem 1rem;
+}
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+details[open] summary {
+  margin-bottom: 0.75rem;
+}
+details ul {
+  padding-left: 1rem;
+  margin: 0;
+  list-style-type: disc;
+  color: #555;
+}
+details ul li {
+  margin-bottom: 0.25rem;
+}
+
+/* Generic section styling for the detail page. These sections mirror
+   the look of the leasing and contact forms, with a soft background,
+   padding and rounded corners. */
+.detail-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+/* Modal overlay and content styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.modal-content h3 {
+  margin-top: 0;
+}
+.modal-content .close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #999;
+}
+.modal-content .close:hover {
+  color: #333;
+}
+
+/* Inputs and labels inside modals should stack and fill the width */
+.modal-content label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+.modal-content textarea {
+  resize: vertical;
+}
+.modal-content button {
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+/* Static field styling used for non-editable values in the leasing modal.
+   It resembles an input field but is read-only text. */
+/* Static field styling used for non-editable values in the leasing modal.
+   Display the value without a border or background so it doesn't look
+   like an input field. */
+.lease-static-field {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Back button on the detail page. Styled like a CTA but appears above
+   the detail content and aligns to the left. */
+.back-button {
+  display: inline-block;
+  background-color: #b28a56;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.back-button:hover {
+  background-color: #9f764b;
+}
+
+/* Result display inside modals (e.g. leasing rate). Make the rate more
+   prominent with larger font size and gold colour to match the sale price. */
+.modal-content .result {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #b28a56;
+}

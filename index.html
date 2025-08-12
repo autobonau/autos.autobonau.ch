@@ -2,12 +2,117 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>autos.autobonau.ch</title>
+    <title>Unsere Autos – Auto Bonau</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <!-- Global site header with logo and navigation links. The customer should feel
+         seamlessly integrated with the rest of the Auto Bonau website. -->
+    <header>
+      <!-- Insert the actual Auto Bonau logo image instead of the text branding. The
+           logo file is stored locally as logo.png and sized via CSS. -->
+      <div class="logo"><img src="logo.png" alt="Auto Bonau" /></div>
+      <nav>
+        <a href="http://autobonau.ch">Home</a>
+        <a href="index.html">Unsere Autos</a>
+        <a href="#" onclick="alert('Diese Seite ist in diesem Prototyp nicht verfügbar.'); return false;">Kaufabwicklung</a>
+        <a href="#" onclick="alert('Diese Seite ist in diesem Prototyp nicht verfügbar.'); return false;">Autofinder</a>
+        <a href="http://autobonau.ch#ueber-uns">Über uns</a>
+        <a href="http://autobonau.ch#kontakt">Kontakt</a>
+      </nav>
+    </header>
+
+    <!-- Main content area. We split the page into a hero section, a filter panel on
+         the left and the vehicle listing on the right. A sort dropdown and
+         wishlist indicator sit above the listing area. -->
+    <main class="container">
+      <!-- Heading removed hero banner per user request. -->
+      <h1 class="page-title">Unsere Auto Auswahl&nbsp;für Sie</h1>
+      <div class="listing-layout">
+        <!-- Filter sidebar. Each field is stacked vertically to mirror the
+             search panel on autorichner.ch. Users can narrow their search by
+             various criteria. -->
+        <aside class="filter-panel">
+          <h2>Fahrzeugsuche</h2>
+          <div class="filter-group">
+            <label for="brandFilter">Marke</label>
+            <select id="brandFilter">
+              <option value="">Alle</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="modelFilter">Modell</label>
+            <select id="modelFilter">
+              <option value="">Alle</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="typeFilter">Fahrzeugart</label>
+            <select id="typeFilter">
+              <option value="">Alle</option>
+            </select>
+          </div>
+          <div class="filter-row">
+            <div class="filter-group half">
+              <label for="priceMin">Preis ab (CHF)</label>
+              <input type="number" id="priceMin" placeholder="0" />
+            </div>
+            <div class="filter-group half">
+              <label for="priceMax">Preis bis (CHF)</label>
+              <input type="number" id="priceMax" placeholder="100000" />
+            </div>
+          </div>
+          <div class="filter-row">
+            <div class="filter-group half">
+              <label for="yearMin">Jahr ab</label>
+              <input type="number" id="yearMin" placeholder="2015" min="1900" max="2100" />
+            </div>
+            <div class="filter-group half">
+              <label for="yearMax">Jahr bis</label>
+              <input type="number" id="yearMax" placeholder="2025" min="1900" max="2100" />
+            </div>
+          </div>
+          <div class="filter-row">
+            <div class="filter-group half">
+              <label for="mileageMin">Km ab</label>
+              <input type="number" id="mileageMin" placeholder="0" />
+            </div>
+            <div class="filter-group half">
+              <label for="mileageMax">Km bis</label>
+              <input type="number" id="mileageMax" placeholder="100000" />
+            </div>
+          </div>
+          <div class="filter-group">
+            <label for="fuelFilter">Treibstoff</label>
+            <select id="fuelFilter">
+              <option value="">Alle</option>
+            </select>
+          </div>
+          <button id="resetFilters" class="reset-btn">Filter zurücksetzen</button>
+        </aside>
+        <section class="listing-area">
+          <div class="listing-header">
+            <div class="sort">
+              <label for="sortSelect">Sortieren nach:</label>
+              <select id="sortSelect">
+                <option value="brand">Marke (A–Z)</option>
+                <option value="price-asc">Preis aufsteigend</option>
+                <option value="price-desc">Preis absteigend</option>
+                <option value="year-desc">Erstzulassung neueste</option>
+                <option value="year-asc">Erstzulassung älteste</option>
+              </select>
+            </div>
+            <div class="wishlist-indicator">
+              <span class="wishlist-icon">&#9733;</span>
+              <span id="wishlistCount">0</span> in der Merkliste
+            </div>
+          </div>
+          <div id="cardGrid" class="card-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
   </body>
 </html>
